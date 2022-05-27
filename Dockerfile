@@ -17,6 +17,9 @@ RUN echo "Checking for 'apt.txt'..." \
         ; fi
 USER ${NB_USER}
 
+RUN git clone https://github.com/topepo/FES.git
+RUN git clone https://github.com/clauswilke/dataviz.git
+
 ## Run an install.R script, if it exists.
 RUN if [ -f install.R ]; then R --quiet -f install.R; fi
 
