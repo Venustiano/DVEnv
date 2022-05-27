@@ -15,6 +15,7 @@ RUN echo "Checking for 'apt.txt'..." \
         && apt-get clean > /dev/null \
         && rm -rf /var/lib/apt/lists/* \
         ; fi
+RUN sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml
 USER ${NB_USER}
 
 RUN git clone https://github.com/topepo/FES.git
