@@ -1,0 +1,8 @@
+libudunits2-dev
+libgdal-dev
+libgeos-dev
+libproj-dev
+libmagick++-dev
+libxt6
+tk
+git
