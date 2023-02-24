@@ -24,7 +24,7 @@ RUN echo "Checking for 'apt.txt'..." \
         && tlmgr path add \
         && chown -R root:staff /opt/TinyTeX \
         && chmod -R g+w /opt/TinyTeX \
-        && chmod -R g+wx /opt/TinyTeX/bin
+        && chmod -R g+wx /opt/TinyTeX/bin \
         ; fi
 RUN sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml
 USER ${NB_USER}
