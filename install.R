@@ -12,7 +12,7 @@ install.packages(c("nycflights13",
 	"generics","DBI","pillar","haven","foreign","withr","units","modelr","crayon","arrayhelpers",
 	"progress","jpeg","rnaturalearth","readxl","digest","classInt","xtable","munsell","ggplot2movies",
 	"base64enc","rmarkdown","tinytex","tikzDevice","scales","bookdown","remotes","FactoMineR","tidymodels","vcd","
-	lwgeom","gridGraphics","caret"))
+	lwgeom","gridGraphics","caret", "repr", "GGally","IRdisplay", "pdbZMQ"))
 
 remotes::install_github('wilkelab/cowplot')
 remotes::install_github('clauswilke/colorblindr')

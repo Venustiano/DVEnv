@@ -27,13 +27,21 @@ RUN echo "Checking for 'apt.txt'..." \
         && chmod -R g+wx /opt/TinyTeX/bin \
         ; fi
 RUN sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml
+
+RUN pip install --quiet --no-cache-dir \
+    RISE \
+    plotly \
+    rpy2 \
+    pandas \
+    scipy \
+    wordcloud \
+    cufflinks \
+    kaleido
+
 USER ${NB_USER}
 
 RUN git clone https://github.com/topepo/FES.git
 RUN git clone https://github.com/clauswilke/dataviz.git
 
-## Run an install.R script, if it exists.
+## Run and install.R script, if it exists.
 RUN if [ -f install.R ]; then R --quiet -f install.R; fi
-
-
-
