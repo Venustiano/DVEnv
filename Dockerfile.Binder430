@@ -1,0 +1,55 @@
+FROM rocker/binder:4.3.0
+
+# docker build -t rocker/mydvenv:4.3.0 -f Dockerfile.Binder430 .
+# docker run --rm -ti -e JUPYTER_TOKEN=****** -e SHELL=/bin/bash -p 8888:8888 rocker/mydvenv:4.3.0
+
+## Declares build arguments
+ARG NB_USER
+ARG NB_UID
+
+COPY --chown=${NB_USER} . ${HOME}
+
+ENV DEBIAN_FRONTEND=noninteractive
+USER root
+RUN echo "Checking for 'apt.txt'..." \
+        ; if test -f "apt.txt" ; then \
+        apt-get update --fix-missing > /dev/null\
+        && xargs -a apt.txt apt-get install --yes \
+        && apt-get clean > /dev/null \
+        && rm -rf /var/lib/apt/lists/* \
+        && wget -qO- \
+          "https://yihui.org/tinytex/install-unx.sh" | \
+          sh -s - --admin --no-path \
+        && mv ~/.TinyTeX /opt/TinyTeX \
+        && /opt/TinyTeX/bin/*/tlmgr path add \
+        && tlmgr install metafont mfware inconsolata tex ae parskip listings pgf preview grfext \
+        && tlmgr install standalone luatex85 pgfplots\
+        && tlmgr path add \
+        && chown -R root:staff /opt/TinyTeX \
+        && chmod -R g+w /opt/TinyTeX \
+        && chmod -R g+wx /opt/TinyTeX/bin \
+        && sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml \
+    ; fi
+
+RUN pip install --quiet --no-cache-dir \
+    RISE \
+    plotly \
+    rpy2 \
+    pandas \
+    scipy \
+    wordcloud \
+    cufflinks \
+    kaleido
+
+USER ${NB_USER}
+
+RUN echo "Cloning git repositories and files ..." \
+    && git clone https://github.com/topepo/FES.git \
+    && git clone https://github.com/clauswilke/dataviz.git \
+    && wget -P ~/rugplotcmd -q \
+    "https://raw.githubusercontent.com/rijksuniversiteit-groningen/docker-cds/master/dsmethods/rugplot/rugplots.R" \
+    && chmod +x ~/rugplotcmd/rugplots.R \
+    && echo "alias rugplot='~/rugplotcmd/rugplots.R'" >> ~/.bashrc
+
+## Run and install.R script, if it exists.
+RUN if [ -f install.R ]; then R --quiet -f install.R; fi
