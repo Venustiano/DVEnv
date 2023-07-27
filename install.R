@@ -23,12 +23,14 @@ install.packages(c("nycflights13", "gapminder", "RColorBrewer",
                    "foreign","withr","units","modelr","crayon",
                    "arrayhelpers", "progress","jpeg","rnaturalearth",
                    "readxl","digest","classInt","xtable","munsell",
-                   "ggplot2movies", "base64enc","rmarkdown","tinytex",
+                   "ggplot2movies", "base64enc","rmarkdown",
                    "tikzDevice","scales","bookdown","remotes",
                    "FactoMineR","tidymodels","vcd"," lwgeom",
                    "gridGraphics","caret", "repr", "GGally",
                    "IRdisplay", "pdbZMQ", "argparse"))
 
+remotes::install_github("rijksuniversiteit-groningen/cds-utils",subdir="rugutils")
+remotes::install_github("rijksuniversiteit-groningen/rugplot")
 remotes::install_github('wilkelab/cowplot')
 remotes::install_github('clauswilke/colorblindr')
 remotes::install_github('clauswilke/dviz.supp')
@@ -38,5 +40,3 @@ remotes::install_github('DavisVaughan/strapgod')
 remotes::install_github('ropensci/plotly')
 remotes::install_github('ropensci/jsonvalidate')
 remotes::install_github("thomasp85/transformr")
-remotes::install_github("rijksuniversiteit-groningen/cds-utils",subdir="rugutils")
-remotes::install_github("rijksuniversiteit-groningen/rugplot")
