@@ -27,6 +27,8 @@ RUN echo "Checking for 'apt.txt'..." \
     && sed -i 's/256MiB/2GiB/' /etc/ImageMagick-6/policy.xml \
     ; fi
 
+USER ${NB_USER}
+
 RUN pip install --quiet --no-cache-dir \
     RISE \
     plotly \
@@ -35,10 +37,13 @@ RUN pip install --quiet --no-cache-dir \
     scipy \
     wordcloud \
     cufflinks \
-    ipywidgets_jsonschema \
-    kaleido
-
-USER ${NB_USER}
+    kaleido \
+    markdown \
+    ipyfilechooser \
+    appdirs \
+    sqlalchemy_utils
+#    fairly \
+#    jupyter-fairly \
 
 RUN echo "rugplot alias ..." \
     && wget -P ~/rugplotcmd -q \
