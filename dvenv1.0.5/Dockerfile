@@ -45,6 +45,7 @@ RUN Rscript /rpackages.R
 RUN pip install --quiet --no-cache-dir \
     RISE \
     plotly \
+    plotnine \
     rpy2 \
     pandas \
     scipy \
